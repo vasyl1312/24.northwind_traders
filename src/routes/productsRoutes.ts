@@ -1,27 +1,40 @@
 import express from 'express'
-import fs from 'fs'
-import csv from 'csv-parser'
-import createTableAndInsertData from '../db/productConnect' // Замініть шлях до файлу dbSetup.ts
+import dotenv from 'dotenv'
+import { Client } from 'pg'
+import { createTableAndInsertData, readProductsFromFile } from '../db/productConnect'
+import { selectSingleProduct } from '../utils/queryUtils'
+
+dotenv.config()
 
 const router = express.Router()
+const connectionString = process.env.DATABASE_URL
+const client = new Client({ connectionString })
 
-router.get('/', (req, res) => {
-  const results: any[] = []
+router.get('/', async (req, res) => {
+  try {
+    const productsInfo = await readProductsFromFile()
+    const result = await createTableAndInsertData(productsInfo, res)
 
-  fs.createReadStream('Telegram Archive/Products.csv')
-    .pipe(csv())
-    .on('data', (data) => {
-      results.push(data)
-    })
-    .on('end', async () => {
-      try {
-        const result = await createTableAndInsertData(results, res)
-        res.json(result)
-      } catch (error) {
-        console.error('Error:', error)
-        res.status(500).send('Internal Server Error')
-      }
-    })
+    res.json(result)
+  } catch (error) {
+    console.error('Error:', error)
+    res.status(500).send('Internal Server Error')
+  }
+})
+
+router.get('/:id', async (req, res) => {
+  const productId = req.params.id
+  try {
+    await client.connect()
+    const result = await selectSingleProduct(client, productId)
+
+    res.json(result)
+  } catch (error) {
+    console.error('Error retrieving data from the database:', error)
+    res.status(500).send('Internal Server Error')
+  } finally {
+    await client.end()
+  }
 })
 
 export default router

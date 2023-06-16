@@ -1,12 +1,33 @@
+import csv from 'csv-parser'
+import * as dotenv from 'dotenv'
 import { Client } from 'pg'
 import { Response } from 'express'
-import * as dotenv from 'dotenv'
+import { selectProducts } from '../utils/queryUtils'
+import { createReadStream } from 'fs'
 dotenv.config()
 
 const connectionString = process.env.DATABASE_URL
-async function createTableAndInsertData(productsInfo: any[], res: Response) {
-  const client = new Client({ connectionString })
+const client = new Client({ connectionString })
 
+function readProductsFromFile(): Promise<any[]> {
+  return new Promise((resolve, reject) => {
+    const results: any[] = []
+
+    createReadStream('Telegram Archive/Products.csv')
+      .pipe(csv())
+      .on('data', (data) => {
+        results.push(data)
+      })
+      .on('end', () => {
+        resolve(results)
+      })
+      .on('error', (error) => {
+        reject(error)
+      })
+  })
+}
+
+async function createTableAndInsertData(productsInfo: any[], res: Response) {
   try {
     await client.connect()
     console.log('Connected to the database')
@@ -114,28 +135,8 @@ async function createTableAndInsertData(productsInfo: any[], res: Response) {
       }
     }
 
-    // Вибірка лише вибраних даних з таблиці
-    const selectQuery = `SELECT "id", "ProductID", "ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder" FROM products1;`
-    const startTime = new Date()
-    const selectResult = await client.query(selectQuery)
-    const finishTime = new Date()
-    const executionTimeToSecond = (finishTime.getTime() - startTime.getTime()) / 1000
-
-    const sqlLog = [
-      {
-        querySqlLog: selectQuery,
-        startTime: startTime.toISOString(),
-        finishTime: finishTime.toISOString(),
-        executionTimeToSecond: executionTimeToSecond.toFixed(3),
-      },
-    ]
-
-    const selectedData = selectResult.rows
-    let result = {
-      sqlLog,
-      products: selectedData,
-    }
-
+    //query
+    const result = await selectProducts(client)
     return result
   } catch (error) {
     console.error('Error creating table and inserting productsInfo:', error)
@@ -146,4 +147,4 @@ async function createTableAndInsertData(productsInfo: any[], res: Response) {
   }
 }
 
-export default createTableAndInsertData
+export { readProductsFromFile, createTableAndInsertData }

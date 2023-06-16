@@ -1,3 +1,7 @@
 `Northwind Trader`
 
-1. Creating and connect to DB, push elem to DB, get sql and selected elem to Products
+Realise a backend part like [this](https://northwind.d1sql.com/dash) with partner(Frontend)
+
+1. Creating and connecting to DB, pushing elem to DB, getting SQL and selecting elem to Products
+2. Route productId(!!!!!!!!!SupplierID-have to be Supplier Name from db)
+<!-- SupplierID -->
