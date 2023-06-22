@@ -1,0 +1,131 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Swagger - OpenAPI 3.0",
+        "version": "1.0.11"
+    },
+    "tags": [
+        {
+            "name": "Products"
+        }
+    ],
+    "paths": {
+        "/products": {
+            "get": {
+                "tags": ["Products"],
+                "summary": "Get list of all products",
+                "responses": {
+                    "200": {
+                        "description": "A list of products.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    }
+                }
+            }
+        },
+        "/products/{productsId}": {
+            "get": {
+                "tags": ["Products"],
+                "summary": "Get single product by id",
+                "responses": {
+                    "200": {
+                        "description": "Full information about this single product",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductId"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    },
+                    "404": {
+                        "description": "No records found in the database matching your query."
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "sqlLog": {
+                        "$ref": "#/components/schemas/SqlLog"
+                    },
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": { "type": "integer", "example": 1 },
+                                "ProductID": { "type": "integer", "example": 1 },
+                                "ProductName": { "type": "string", "example": "Chai" },
+                                "QuantityPerUnit": { "type": "string", "example": "10 boxes x 20 bags" },
+                                "UnitPrice": { "type": "string", "example": "18" },
+                                "UnitsInStock": { "type": "integer", "example": 39 },
+                                "UnitsOnOrder": { "type": "integer", "example": 0 }
+                            }
+                        }
+                    }
+                }
+            },
+            "ProductId": {
+                "type": "object",
+                "properties": {
+                    "sqlLog": {
+                        "$ref": "#/components/schemas/SqlLog"
+                    },
+                    "product": {
+                        "type": "object",
+                        "properties": {
+                            "id": { "type": "integer", "example": 1 },
+                            "ProductID": { "type": "integer", "example": 1 },
+                            "ProductName": { "type": "string", "example": "Chai" },
+                            "QuantityPerUnit": { "type": "string", "example": "10 boxes x 20 bags" },
+                            "UnitPrice": { "type": "string", "example": "18" },
+                            "UnitsInStock": { "type": "integer", "example": 39 },
+                            "SupplierID": { "type": "integer", "example": 1 },
+                            "ReorderLevel": { "type": "integer", "example": 10 },
+                            "Discontinued": { "type": "integer", "example": 0 },
+                            "UnitsOnOrder": { "type": "integer", "example": 0 },
+                            "Supplier": { "type": "string", "example": "Exotic Liquids" }
+                        }
+                    }
+                }
+            },
+            "SqlLog": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "querySqlLog": {
+                            "type": "string",
+                            "example": "SELECT \"id\", \"ProductID\", \"ProductName\", \"QuantityPerUnit\", \"UnitPrice\", \"UnitsInStock\", \"UnitsOnOrder\" FROM products1;"
+                        },
+                        "startTime": { "type": "string", "example": "2023-06-22T13:18:57.665Z" },
+                        "finishTime": { "type": "string", "example": "2023-06-22T13:18:57.710Z" },
+                        "executionTimeToSecond": { "type": "integer", "example": 0.045 }
+                    }
+                }
+            }
+        }
+    }
+}
