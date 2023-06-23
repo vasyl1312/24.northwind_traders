@@ -1,5 +1,5 @@
+dist
 Telegram Archive
 .env
 node_modules
-
-dist
+src/swagger/swagger.txt

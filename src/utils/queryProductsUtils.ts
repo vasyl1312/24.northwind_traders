@@ -2,7 +2,7 @@ import { Client } from 'pg'
 
 async function selectProducts(client: Client) {
   // Вибірка лише вибраних даних з таблиці
-  const selectQuery = `SELECT "id", "ProductID", "ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder" FROM products1;`
+  const selectQuery = `SELECT "id", "ProductID", "ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder" FROM products;`
   const startTime = new Date()
   const selectResult = await client.query(selectQuery)
   const finishTime = new Date()
@@ -27,7 +27,11 @@ async function selectProducts(client: Client) {
 }
 
 async function selectSingleProduct(client: Client, productId: string) {
-  const selectQuery = `SELECT "id", "ProductID", "ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "SupplierID", "ReorderLevel", "Discontinued", "UnitsOnOrder" FROM products1 WHERE "id" = $1;` //AND Supplier.Id=Product.SupplierId додати???????????????????????????????????????
+  const selectQuery = `SELECT p."id", p."ProductID", p."ProductName", p."QuantityPerUnit", p."UnitPrice", p."UnitsInStock", p."SupplierID", p."ReorderLevel", p."Discontinued", p."UnitsOnOrder", s."CompanyName"
+  FROM products p
+  JOIN suppliers s ON p."SupplierID" = s."SupplierID"
+  WHERE p."id" = $1;
+  `
 
   const startTime = new Date()
   const selectResult = await client.query(selectQuery, [productId])
@@ -46,7 +50,7 @@ async function selectSingleProduct(client: Client, productId: string) {
   const selectedData = selectResult.rows
   let result = {
     sqlLog,
-    products: selectedData,
+    product: selectedData,
   }
 
   return result

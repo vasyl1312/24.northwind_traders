@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import productsRoutes from './routes/productsRoutes'
+import suppliersRoutes from './routes/suppliersRoutes'
 import { swaggerRouter } from './swagger/router'
 
 import * as dotenv from 'dotenv'
@@ -15,6 +16,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/products', productsRoutes)
+app.use('/suppliers', suppliersRoutes)
 app.use('/api_docs', swaggerRouter)
 
 app.listen(PORT, () => {

@@ -16,7 +16,7 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const pg_1 = require("pg");
 const productConnect_1 = require("../db/productConnect");
-const queryUtils_1 = require("../utils/queryUtils");
+const queryProductsUtils_1 = require("../utils/queryProductsUtils");
 dotenv_1.default.config();
 const router = express_1.default.Router();
 const connectionString = process.env.DATABASE_URL;
@@ -36,7 +36,7 @@ router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const productId = req.params.id;
     try {
         yield client.connect();
-        const result = yield (0, queryUtils_1.selectSingleProduct)(client, productId);
+        const result = yield (0, queryProductsUtils_1.selectSingleProduct)(client, productId);
         res.json(result);
     }
     catch (error) {

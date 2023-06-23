@@ -29,6 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const productsRoutes_1 = __importDefault(require("./routes/productsRoutes"));
+const suppliersRoutes_1 = __importDefault(require("./routes/suppliersRoutes"));
 const router_1 = require("./swagger/router");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
@@ -38,7 +39,8 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use('/products', productsRoutes_1.default);
-app.use('/api-docs', router_1.swaggerRouter);
+app.use('/suppliers', suppliersRoutes_1.default);
+app.use('/api_docs', router_1.swaggerRouter);
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
 });

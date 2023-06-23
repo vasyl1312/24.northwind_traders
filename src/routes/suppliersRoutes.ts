@@ -1,8 +1,8 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import { Client } from 'pg'
-import { createTableAndInsertData, readProductsFromFile } from '../db/productConnect'
-import { selectSingleProduct } from '../utils/queryProductsUtils'
+import { createTableAndInsertData, readSuppliersFromFile } from '../db/suppliersConnect'
+import { selectSingleSupplier } from '../utils/querySuppliersUtils'
 
 dotenv.config()
 
@@ -12,8 +12,8 @@ const client = new Client({ connectionString })
 
 router.get('/', async (req, res) => {
   try {
-    const productsInfo = await readProductsFromFile()
-    const result = await createTableAndInsertData(productsInfo, res)
+    const suppliersInfo = await readSuppliersFromFile()
+    const result = await createTableAndInsertData(suppliersInfo, res)
 
     res.json(result)
   } catch (error) {
@@ -23,10 +23,10 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const productId = req.params.id
+  const supplierId = req.params.id
   try {
     await client.connect()
-    const result = await selectSingleProduct(client, productId)
+    const result = await selectSingleSupplier(client, supplierId)
 
     res.json(result)
   } catch (error) {

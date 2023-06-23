@@ -2,7 +2,7 @@ import csv from 'csv-parser'
 import * as dotenv from 'dotenv'
 import { Client } from 'pg'
 import { Response } from 'express'
-import { selectProducts } from '../utils/queryUtils'
+import { selectProducts } from '../utils/queryProductsUtils'
 import { createReadStream } from 'fs'
 dotenv.config()
 
@@ -30,10 +30,9 @@ function readProductsFromFile(): Promise<any[]> {
 async function createTableAndInsertData(productsInfo: any[], res: Response) {
   try {
     await client.connect()
-    console.log('Connected to the database')
 
     const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS products1 (
+      CREATE TABLE IF NOT EXISTS products (
         "id" SERIAL PRIMARY KEY,
         "ProductID" integer,
         "ProductName" varchar(255),
@@ -49,23 +48,8 @@ async function createTableAndInsertData(productsInfo: any[], res: Response) {
     `
     await client.query(createTableQuery)
 
-    const insertQuery = `
-      INSERT INTO products1 (
-        "ProductID",
-        "ProductName",
-        "SupplierID",
-        "CategoryID",
-        "QuantityPerUnit",
-        "UnitPrice",
-        "UnitsInStock",
-        "UnitsOnOrder",
-        "ReorderLevel",
-        "Discontinued"
-      )
-      VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
-      );
-    `
+    const insertQuery = `INSERT INTO products ("ProductID","ProductName","SupplierID","CategoryID","QuantityPerUnit","UnitPrice","UnitsInStock","UnitsOnOrder","ReorderLevel","Discontinued")
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
 
     for (const row of productsInfo) {
       const {
@@ -91,7 +75,7 @@ async function createTableAndInsertData(productsInfo: any[], res: Response) {
           "UnitPrice",
           "UnitsInStock",
           "UnitsOnOrder"
-        FROM products1
+        FROM products
         WHERE
           "ProductID" = $1 AND
           "ProductName" = $2 AND
@@ -143,7 +127,6 @@ async function createTableAndInsertData(productsInfo: any[], res: Response) {
     throw new Error('Error creating table and inserting productsInfo')
   } finally {
     await client.end()
-    console.log('Disconnected from the database')
   }
 }
 

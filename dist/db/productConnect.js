@@ -39,7 +39,7 @@ exports.createTableAndInsertData = exports.readProductsFromFile = void 0;
 const csv_parser_1 = __importDefault(require("csv-parser"));
 const dotenv = __importStar(require("dotenv"));
 const pg_1 = require("pg");
-const queryUtils_1 = require("../utils/queryUtils");
+const queryProductsUtils_1 = require("../utils/queryProductsUtils");
 const fs_1 = require("fs");
 dotenv.config();
 const connectionString = process.env.DATABASE_URL;
@@ -65,9 +65,8 @@ function createTableAndInsertData(productsInfo, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield client.connect();
-            console.log('Connected to the database');
             const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS products1 (
+      CREATE TABLE IF NOT EXISTS products (
         "id" SERIAL PRIMARY KEY,
         "ProductID" integer,
         "ProductName" varchar(255),
@@ -82,23 +81,8 @@ function createTableAndInsertData(productsInfo, res) {
       );
     `;
             yield client.query(createTableQuery);
-            const insertQuery = `
-      INSERT INTO products1 (
-        "ProductID",
-        "ProductName",
-        "SupplierID",
-        "CategoryID",
-        "QuantityPerUnit",
-        "UnitPrice",
-        "UnitsInStock",
-        "UnitsOnOrder",
-        "ReorderLevel",
-        "Discontinued"
-      )
-      VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
-      );
-    `;
+            const insertQuery = `INSERT INTO products ("ProductID","ProductName","SupplierID","CategoryID","QuantityPerUnit","UnitPrice","UnitsInStock","UnitsOnOrder","ReorderLevel","Discontinued")
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
             for (const row of productsInfo) {
                 const { ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, } = row;
                 // Перевірка, чи існує вже запис з такими даними
@@ -111,7 +95,7 @@ function createTableAndInsertData(productsInfo, res) {
           "UnitPrice",
           "UnitsInStock",
           "UnitsOnOrder"
-        FROM products1
+        FROM products
         WHERE
           "ProductID" = $1 AND
           "ProductName" = $2 AND
@@ -154,7 +138,7 @@ function createTableAndInsertData(productsInfo, res) {
                 }
             }
             //query
-            const result = yield (0, queryUtils_1.selectProducts)(client);
+            const result = yield (0, queryProductsUtils_1.selectProducts)(client);
             return result;
         }
         catch (error) {
@@ -163,7 +147,6 @@ function createTableAndInsertData(productsInfo, res) {
         }
         finally {
             yield client.end();
-            console.log('Disconnected from the database');
         }
     });
 }
