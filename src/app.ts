@@ -15,7 +15,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/products', productsRoutes)
-app.use('/api-docs', swaggerRouter)
+app.use('/api_docs', swaggerRouter)
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`)
