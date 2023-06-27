@@ -25,9 +25,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_PATH=./dist node ./dist/app.js",
+    "start": "set NODE_PATH=./dist && node ./dist/app.js",
     "dev": "nodemon",
-    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "build": "del /S /Q dist && tsc -p tsconfig.json",
     "prod": "npm run build && npm run start"
   },
   "repository": {
