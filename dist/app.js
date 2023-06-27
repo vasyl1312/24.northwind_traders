@@ -38,7 +38,7 @@ const PORT = process.env.PORT || 8081;
 const connectionString = process.env.DATABASE_URL;
 const client = new pg_1.Client({ connectionString });
 const app = (0, express_1.default)();
-client.connect();
+// client.connect()
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use('/products', productsRoutes_1.default);
@@ -47,4 +47,4 @@ app.use('/api_docs', router_1.swaggerRouter);
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
 });
-client.end();
+// client.end()

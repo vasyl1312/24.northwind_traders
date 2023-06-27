@@ -14,7 +14,7 @@ const client = new Client({ connectionString })
 
 const app = express()
 
-client.connect()
+// client.connect()
 
 app.use(cors())
 app.use(express.json())
@@ -27,4 +27,4 @@ app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`)
 })
 
-client.end()
+// client.end()

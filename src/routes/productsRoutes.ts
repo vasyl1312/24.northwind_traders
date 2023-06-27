@@ -12,6 +12,8 @@ const client = new Client({ connectionString })
 
 router.get('/', async (req, res) => {
   try {
+    await client.connect()
+
     const productsInfo = await readProductsFromFile()
     const result = await createTableAndInsertData(productsInfo, res)
 
@@ -19,13 +21,15 @@ router.get('/', async (req, res) => {
   } catch (error) {
     console.error('Error:', error)
     res.status(500).send('Internal Server Error')
+  } finally {
+    await client.end()
   }
 })
 
 router.get('/:id', async (req, res) => {
   const productId = req.params.id
   try {
-    // await client.connect()
+    await client.connect()
     const result = await selectSingleProduct(client, productId)
 
     res.json(result)
@@ -33,7 +37,7 @@ router.get('/:id', async (req, res) => {
     console.error('Error retrieving data from the database:', error)
     res.status(500).send('Internal Server Error')
   } finally {
-    // await client.end()
+    await client.end()
   }
 })
 

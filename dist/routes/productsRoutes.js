@@ -23,6 +23,7 @@ const connectionString = process.env.DATABASE_URL;
 const client = new pg_1.Client({ connectionString });
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        yield client.connect();
         const productsInfo = yield (0, productConnect_1.readProductsFromFile)();
         const result = yield (0, productConnect_1.createTableAndInsertData)(productsInfo, res);
         res.json(result);
@@ -31,11 +32,14 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.error('Error:', error);
         res.status(500).send('Internal Server Error');
     }
+    finally {
+        yield client.end();
+    }
 }));
 router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const productId = req.params.id;
     try {
-        // await client.connect()
+        yield client.connect();
         const result = yield (0, queryProductsUtils_1.selectSingleProduct)(client, productId);
         res.json(result);
     }
@@ -44,7 +48,7 @@ router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).send('Internal Server Error');
     }
     finally {
-        // await client.end()
+        yield client.end();
     }
 }));
 exports.default = router;
