@@ -34,7 +34,6 @@ const router_1 = require("./swagger/router");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const PORT = process.env.PORT || 8081;
-const swaggerPort = process.env.SWAGGER_PORT || 4000;
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -43,7 +42,4 @@ app.use('/suppliers', suppliersRoutes_1.default);
 app.use('/api_docs', router_1.swaggerRouter);
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
-});
-app.listen(swaggerPort, () => {
-    console.log(`Swagger listening on port  ${swaggerPort}`);
 });

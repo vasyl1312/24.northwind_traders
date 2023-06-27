@@ -8,7 +8,6 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 const PORT = process.env.PORT || 8081
-const swaggerPort = process.env.SWAGGER_PORT || 4000
 
 const app = express()
 
@@ -21,8 +20,4 @@ app.use('/api_docs', swaggerRouter)
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`)
-})
-
-app.listen(swaggerPort, () => {
-  console.log(`Swagger listening on port  ${swaggerPort}`)
 })
