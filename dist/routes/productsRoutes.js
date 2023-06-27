@@ -35,7 +35,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const productId = req.params.id;
     try {
-        yield client.connect();
+        // await client.connect()
         const result = yield (0, queryProductsUtils_1.selectSingleProduct)(client, productId);
         res.json(result);
     }
@@ -44,7 +44,7 @@ router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).send('Internal Server Error');
     }
     finally {
-        yield client.end();
+        // await client.end()
     }
 }));
 exports.default = router;

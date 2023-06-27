@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const supplierId = req.params.id
   try {
-    await client.connect()
+    // await client.connect()
     const result = await selectSingleSupplier(client, supplierId)
 
     res.json(result)
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
     console.error('Error retrieving data from the database:', error)
     res.status(500).send('Internal Server Error')
   } finally {
-    await client.end()
+    // await client.end()
   }
 })
 
