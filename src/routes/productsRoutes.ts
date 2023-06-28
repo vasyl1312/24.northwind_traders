@@ -51,8 +51,6 @@ const router = express.Router()
 const productsRoutes = (client: any) => {
   router.get('/', async (req, res) => {
     try {
-      await client.connect()
-
       const productsInfo = await readProductsFromFile()
       const result = await createTableAndInsertData(productsInfo, res)
 
@@ -60,23 +58,18 @@ const productsRoutes = (client: any) => {
     } catch (error) {
       console.error('Error:', error)
       res.status(500).send('Internal Server Error')
-    } finally {
-      await client.end()
     }
   })
 
   router.get('/:id', async (req, res) => {
     const productId = req.params.id
     try {
-      await client.connect()
       const result = await selectSingleProduct(client, productId)
 
       res.json(result)
     } catch (error) {
       console.error('Error retrieving data from the database:', error)
       res.status(500).send('Internal Server Error')
-    } finally {
-      await client.end()
     }
   })
 

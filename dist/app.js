@@ -32,13 +32,17 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const PORT = process.env.PORT || 8081;
 const connectionString = process.env.DATABASE_URL;
-const client = new pg_1.Client({ connectionString });
 const app = (0, express_1.default)();
+const client = new pg_1.Client({ connectionString });
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use('/products', (0, productsRoutes_1.default)(client)); // Передаємо клієнта до маршрутів
 // app.use('/suppliers', suppliersRoutes(client)); // Передаємо клієнта до маршрутів
 app.use('/api_docs', router_1.swaggerRouter);
-app.listen(PORT, () => {
-    console.log(`listening on port ${PORT}`);
+client.connect().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Listening on port ${PORT}`);
+    });
+}).catch((error) => {
+    console.error('Error connecting to the database:', error);
 });
