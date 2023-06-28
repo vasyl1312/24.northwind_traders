@@ -1,14 +1,14 @@
 import express from 'express'
-import { createTableAndInsertData, readProductsFromFile } from '../db/productConnect'
-import { selectSingleProduct } from '../utils/queryProductsUtils'
+import { createTableAndInsertData, readCustomersFromFile } from '../db/customersConnect'
+import { selectSingleCustomer } from '../utils/queryCustomersUtils'
 
 const router = express.Router()
 
-const productsRoutes = (client: any) => {
+const customersRoutes = (client: any) => {
   router.get('/', async (req, res) => {
     try {
-      const productsInfo = await readProductsFromFile()
-      const result = await createTableAndInsertData(client, productsInfo, res)
+      const customersInfo = await readCustomersFromFile()
+      const result = await createTableAndInsertData(client, customersInfo, res)
 
       res.json(result)
     } catch (error) {
@@ -18,9 +18,9 @@ const productsRoutes = (client: any) => {
   })
 
   router.get('/:id', async (req, res) => {
-    const productId = req.params.id
+    const customerId = req.params.id
     try {
-      const result = await selectSingleProduct(client, productId)
+      const result = await selectSingleCustomer(client, customerId)
 
       res.json(result)
     } catch (error) {
@@ -32,4 +32,4 @@ const productsRoutes = (client: any) => {
   return router
 }
 
-export default productsRoutes
+export default customersRoutes

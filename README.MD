@@ -14,3 +14,4 @@ Realise a backend part like [this](https://northwind.d1sql.com/dash) with partne
 2. Route productId
 3. Create swagger for all and single product
 4. Suppliers SupplierID and swagger
+5. Customers and single Customer
