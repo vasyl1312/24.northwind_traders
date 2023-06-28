@@ -27,9 +27,9 @@ function readProductsFromFile(): Promise<any[]> {
   })
 }
 
-async function createTableAndInsertData(productsInfo: any[], res: Response) {
+async function createTableAndInsertData(client: Client,productsInfo: any[], res: Response) {
   try {
-    await client.connect()
+    // await client.connect()
 
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS products (
@@ -126,7 +126,7 @@ async function createTableAndInsertData(productsInfo: any[], res: Response) {
     console.error('Error creating table and inserting productsInfo:', error)
     throw new Error('Error creating table and inserting productsInfo')
   } finally {
-    await client.end()
+    // await client.end()
   }
 }
 

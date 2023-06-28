@@ -61,10 +61,10 @@ function readProductsFromFile() {
     });
 }
 exports.readProductsFromFile = readProductsFromFile;
-function createTableAndInsertData(productsInfo, res) {
+function createTableAndInsertData(client, productsInfo, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield client.connect();
+            // await client.connect()
             const createTableQuery = `
       CREATE TABLE IF NOT EXISTS products (
         "id" SERIAL PRIMARY KEY,
@@ -146,7 +146,7 @@ function createTableAndInsertData(productsInfo, res) {
             throw new Error('Error creating table and inserting productsInfo');
         }
         finally {
-            yield client.end();
+            // await client.end()
         }
     });
 }

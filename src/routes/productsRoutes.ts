@@ -52,7 +52,7 @@ const productsRoutes = (client: any) => {
   router.get('/', async (req, res) => {
     try {
       const productsInfo = await readProductsFromFile()
-      const result = await createTableAndInsertData(productsInfo, res)
+      const result = await createTableAndInsertData(client,productsInfo, res)
 
       res.json(result)
     } catch (error) {

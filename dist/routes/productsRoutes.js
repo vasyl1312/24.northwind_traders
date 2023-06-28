@@ -56,7 +56,7 @@ const productsRoutes = (client) => {
     router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const productsInfo = yield (0, productConnect_1.readProductsFromFile)();
-            const result = yield (0, productConnect_1.createTableAndInsertData)(productsInfo, res);
+            const result = yield (0, productConnect_1.createTableAndInsertData)(client, productsInfo, res);
             res.json(result);
         }
         catch (error) {
