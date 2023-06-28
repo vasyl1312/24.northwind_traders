@@ -43,8 +43,8 @@ const client = new Client({ connectionString });
 app.use(cors());
 app.use(express.json());
 
-app.use('/products', productsRoutes(client)); // Передаємо клієнта до маршрутів
-// app.use('/suppliers', suppliersRoutes(client)); // Передаємо клієнта до маршрутів
+app.use('/products', productsRoutes(client));
+app.use('/suppliers', suppliersRoutes(client)); 
 app.use('/api_docs', swaggerRouter);
 
 client.connect().then(() => {

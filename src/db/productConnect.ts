@@ -6,9 +6,6 @@ import { selectProducts } from '../utils/queryProductsUtils'
 import { createReadStream } from 'fs'
 dotenv.config()
 
-const connectionString = process.env.DATABASE_URL
-const client = new Client({ connectionString })
-
 function readProductsFromFile(): Promise<any[]> {
   return new Promise((resolve, reject) => {
     const results: any[] = []
@@ -27,10 +24,8 @@ function readProductsFromFile(): Promise<any[]> {
   })
 }
 
-async function createTableAndInsertData(client: Client,productsInfo: any[], res: Response) {
+async function createTableAndInsertData(client: Client, productsInfo: any[], res: Response) {
   try {
-    // await client.connect()
-
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS products (
         "id" SERIAL PRIMARY KEY,
@@ -125,8 +120,6 @@ async function createTableAndInsertData(client: Client,productsInfo: any[], res:
   } catch (error) {
     console.error('Error creating table and inserting productsInfo:', error)
     throw new Error('Error creating table and inserting productsInfo')
-  } finally {
-    // await client.end()
   }
 }
 

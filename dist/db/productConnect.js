@@ -38,12 +38,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createTableAndInsertData = exports.readProductsFromFile = void 0;
 const csv_parser_1 = __importDefault(require("csv-parser"));
 const dotenv = __importStar(require("dotenv"));
-const pg_1 = require("pg");
 const queryProductsUtils_1 = require("../utils/queryProductsUtils");
 const fs_1 = require("fs");
 dotenv.config();
-const connectionString = process.env.DATABASE_URL;
-const client = new pg_1.Client({ connectionString });
 function readProductsFromFile() {
     return new Promise((resolve, reject) => {
         const results = [];
@@ -64,7 +61,6 @@ exports.readProductsFromFile = readProductsFromFile;
 function createTableAndInsertData(client, productsInfo, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // await client.connect()
             const createTableQuery = `
       CREATE TABLE IF NOT EXISTS products (
         "id" SERIAL PRIMARY KEY,
@@ -144,9 +140,6 @@ function createTableAndInsertData(client, productsInfo, res) {
         catch (error) {
             console.error('Error creating table and inserting productsInfo:', error);
             throw new Error('Error creating table and inserting productsInfo');
-        }
-        finally {
-            // await client.end()
         }
     });
 }

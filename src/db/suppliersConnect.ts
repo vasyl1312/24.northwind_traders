@@ -8,9 +8,6 @@ import { selectSuppliers } from '../utils/querySuppliersUtils'
 
 dotenv.config()
 
-const connectionString = process.env.DATABASE_URL
-const client = new Client({ connectionString })
-
 async function readSuppliersFromFile(): Promise<any[]> {
   const results: any[] = []
 
@@ -32,10 +29,8 @@ async function readSuppliersFromFile(): Promise<any[]> {
   })
 }
 
-async function createTableAndInsertData(suppliersInfo: any[], res: Response) {
+async function createTableAndInsertData(client: Client, suppliersInfo: any[], res: Response) {
   try {
-    await client.connect()
-
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS suppliers (
         "id" SERIAL PRIMARY KEY,
@@ -131,8 +126,6 @@ async function createTableAndInsertData(suppliersInfo: any[], res: Response) {
   } catch (error) {
     console.error('Error creating table and inserting suppliersInfo:', error)
     throw new Error('Error creating table and inserting suppliersInfo')
-  } finally {
-    await client.end()
   }
 }
 
