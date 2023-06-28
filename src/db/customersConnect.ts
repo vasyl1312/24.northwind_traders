@@ -8,26 +8,6 @@ import { selectCustomers } from '../utils/queryCustomersUtils'
 
 dotenv.config()
 
-// async function readCustomersFromFile(): Promise<any[]> {
-//   const results: any[] = []
-
-//   return new Promise((resolve, reject) => {
-//     createReadStream('Telegram Archive/Customers.csv')
-//       .pipe(csv())
-//       .on('data', async (data) => {
-//         const region = getRegion(data.Country)
-//         data.Region = region
-
-//         results.push(data)
-//       })
-//       .on('end', () => {
-//         resolve(results)
-//       })
-//       .on('error', (error) => {
-//         reject(error)
-//       })
-//   })
-// }
 async function readCustomersFromFile(): Promise<any[]> {
   const results: any[] = []
 

@@ -20,7 +20,7 @@ async function selectCustomers(client: Client) {
   const selectedData = selectResult.rows
   let result = {
     sqlLog,
-    suppliers: selectedData,
+    customers: selectedData,
   }
 
   return result
@@ -46,7 +46,7 @@ async function selectSingleCustomer(client: Client, productId: string) {
   const selectedData = selectResult.rows
   let result = {
     sqlLog,
-    supplier: selectedData,
+    customer: selectedData,
   }
 
   return result

@@ -10,6 +10,9 @@
         },
         {
             "name": "Suppliers"
+        },
+        {
+            "name": "Customers"
         }
     ],
     "paths": {
@@ -99,6 +102,57 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/SupplierId"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    },
+                    "404": {
+                        "description": "No records found in the database matching your query."
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    }
+                }
+            }
+        },
+        "/customers": {
+            "get": {
+                "tags": ["Customers"],
+                "summary": "Get list of all customers",
+                "responses": {
+                    "200": {
+                        "description": "A list of customers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Customer"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    }
+                }
+            }
+        },
+        "/customers/{customersId}": {
+            "get": {
+                "tags": ["Customers"],
+                "summary": "Get single customer by id",
+                "responses": {
+                    "200": {
+                        "description": "Full information about this single customer",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerId"
                                 }
                             }
                         }
@@ -208,6 +262,54 @@
                             "PostalCode": { "type": "string", "example": "70117" },
                             "Country": { "type": "string", "example": "USA" },
                             "Phone": { "type": "string", "example": "(100) 555-4822" }
+                        }
+                    }
+                }
+            },
+            "Customer": {
+                "type": "object",
+                "properties": {
+                    "sqlLog": {
+                        "$ref": "#/components/schemas/SqlLog"
+                    },
+                    "customers": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": { "type": "integer", "example": 1 },
+                                "CustomerID": { "type": "string", "example": "ALFKI" },
+                                "CompanyName": { "type": "string", "example": "Alfreds Futterkiste" },
+                                "ContactName": { "type": "string", "example": "Maria Anders" },
+                                "ContactTitle": { "type": "string", "example": "Sales Representative" },
+                                "City": { "type": "string", "example": "Berlin" },
+                                "Country": { "type": "string", "example": "Germany" }
+                            }
+                        }
+                    }
+                }
+            },
+            "CustomerId": {
+                "type": "object",
+                "properties": {
+                    "sqlLog": {
+                        "$ref": "#/components/schemas/SqlLog"
+                    },
+                    "customer": {
+                        "type": "object",
+                        "properties": {
+                            "id": { "type": "integer", "example": 1 },
+                            "CustomerID": { "type": "string", "example": "ALFKI" },
+                            "CompanyName": { "type": "string", "example": "Alfreds Futterkiste" },
+                            "ContactName": { "type": "string", "example": "Maria Anders" },
+                            "ContactTitle": { "type": "string", "example": "Sales Representative" },
+                            "Address": { "type": "string", "example": "Obere Str. 57" },
+                            "City": { "type": "string", "example": "Berlin" },
+                            "Region": { "type": "string", "example": "Western Europe" },
+                            "PostalCode": { "type": "string", "example": "12209" },
+                            "Country": { "type": "string", "example": "Germany" },
+                            "Phone": { "type": "string", "example": "030-0074321" },
+                            "Fax": { "type": "string", "example": "030-0076545" }
                         }
                     }
                 }
