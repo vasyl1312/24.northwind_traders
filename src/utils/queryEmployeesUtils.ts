@@ -2,7 +2,7 @@ import { Client } from 'pg'
 
 async function selectEmployees(client: Client) {
   // Вибірка лише вибраних даних з таблиці
-  const selectQuery = `SELECT "id", "CustomerID", "CompanyName", "ContactName", "ContactTitle", "City", "Country" FROM employees;`
+  const selectQuery = `SELECT "id", "EmployeeID", "Name", "Title", "City", "Country", "HomePhone" FROM employees;`
   const startTime = new Date()
   const selectResult = await client.query(selectQuery)
   const finishTime = new Date()

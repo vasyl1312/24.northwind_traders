@@ -20,7 +20,6 @@ const productsRoutes = (client) => {
     router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const productsInfo = yield (0, productConnect_1.readProductsFromFile)();
-            console.log(productsInfo);
             const result = yield (0, productConnect_1.createTableAndInsertData)(client, productsInfo, res);
             res.json(result);
         }

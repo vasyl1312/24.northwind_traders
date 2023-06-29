@@ -8,82 +8,98 @@ async function createTableAndInsertData(client: Client, employeesInfo: any[], re
   try {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS employees (
       "id" SERIAL PRIMARY KEY,
-      "CustomerID" varchar(255),
-      "CompanyName" varchar(255),
-      "ContactName" varchar(255),
-      "ContactTitle" varchar(255),
+      "EmployeeID" integer,
+      "Name" varchar(255),
+      "Title" varchar(255),
+      "TitleOfCourtesy" varchar(255),
       "Address" varchar(255),
       "City" varchar(255),
-      "Region" varchar(255),
+      "BirthDate" varchar(255),
       "PostalCode" varchar(255),
       "Country" varchar(255),
-      "Phone" varchar(255),
-      "Fax" varchar(255) );`
+      "HireDate" varchar(255),
+      "HomePhone" varchar(255),
+      "Extension" integer,
+      "Notes" text,
+      "ReportsTo" integer 
+      );`
 
     await client.query(createTableQuery)
 
-    const insertQuery = `INSERT INTO employees ("CustomerID", "CompanyName", "ContactName", "ContactTitle", "Address", "City", "Region", "PostalCode", "Country", "Phone", "Fax")
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`
+    const insertQuery = `INSERT INTO employees ("EmployeeID", "Name", "Title", "TitleOfCourtesy", "Address", "City", "BirthDate", "PostalCode", "Country", "HireDate", "HomePhone", "Extension", "Notes", "ReportsTo" )
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);`
 
     for (const row of employeesInfo) {
       const {
-        CustomerID,
-        CompanyName,
-        ContactName,
-        ContactTitle,
+        EmployeeID,
+        Name,
+        Title,
+        TitleOfCourtesy,
         Address,
         City,
-        Region,
+        BirthDate,
         PostalCode,
         Country,
-        Phone,
-        Fax,
+        HireDate,
+        HomePhone,
+        Extension,
+        Notes,
+        ReportsTo,
       } = row
 
       // Перевірка, чи існує вже запис з такими даними
-      const existingQuery = `SELECT "id", "CustomerID", "CompanyName", "ContactName", "ContactTitle", "Address", "City", "Region", "PostalCode", "Country", "Phone", "Fax" FROM employees
+      const existingQuery = `SELECT "id", "EmployeeID", "Name", "Title", "TitleOfCourtesy", "Address", "City", "BirthDate", "PostalCode", "Country", "HireDate", "HomePhone", "Extension", "Notes", "ReportsTo" FROM employees
         WHERE
-          "CustomerID" = $1 AND
-          "CompanyName" = $2 AND
-          "ContactName" = $3 AND
-          "ContactTitle" = $4 AND
+          "EmployeeID" = $1 AND
+          "Name" = $2 AND
+          "Title" = $3 AND
+          "TitleOfCourtesy" = $4 AND
           "Address" = $5 AND
           "City" = $6 AND
-          "Region" = $7 AND
+          "BirthDate" = $7 AND
           "PostalCode" = $8 AND
           "Country" = $9 AND
-          "Phone" = $10 AND
-          "Fax" = $11
+          "HireDate" = $10 AND
+          "HomePhone" = $11 AND
+          "Extension" = $12 AND 
+          "Notes" = $13 AND 
+          "ReportsTo"= $14
         LIMIT 1;
       `
       const existingResult = await client.query(existingQuery, [
-        CustomerID,
-        CompanyName,
-        ContactName,
-        ContactTitle,
+        EmployeeID,
+        Name,
+        Title,
+        TitleOfCourtesy,
         Address,
         City,
-        Region,
+        BirthDate,
         PostalCode,
         Country,
-        Phone,
-        Fax,
+        HireDate,
+        HomePhone,
+        Extension,
+        Notes,
+        ReportsTo,
       ])
 
       if (existingResult.rowCount === 0) {
         // Якщо запис не знайдено, виконуємо INSERT запит
         await client.query(insertQuery, [
-          CustomerID,
-          CompanyName,
-          ContactName,
-          ContactTitle,
+          EmployeeID,
+          Name,
+          Title,
+          TitleOfCourtesy,
           Address,
           City,
-          Region,
+          BirthDate,
           PostalCode,
           Country,
-          Phone,
-          Fax,
+          HireDate,
+          HomePhone,
+          Extension,
+          Notes,
+          ReportsTo,
         ])
       }
     }

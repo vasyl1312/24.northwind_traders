@@ -17,3 +17,6 @@ Realise a backend part like [this](https://northwind.d1sql.com/dash) with partne
 5. Customers and single Customer
 6. Customer swagger
 7. Read data Employees and prepare to db
+8. Push Employees to db
+
+<!-- 8. Push Employees id -->

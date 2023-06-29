@@ -33,6 +33,7 @@ async function readEmployeesFromFile(): Promise<any[]> {
             data.HomePhone = `${data.Extension}`
             data.Extension = `${data.Notes}`
             data.Notes = `${data.ReportsTo}${data._16}${data._17}${data._18}`
+            data.ReportsTo = null
             break
 
           case 2:
@@ -47,7 +48,8 @@ async function readEmployeesFromFile(): Promise<any[]> {
             data.Name = `${data.FirstName} ${data.LastName}`
             data.Notes = `${data.Notes}${data.ReportsTo}${data._16}`
             data.ReportsTo = `${data._17.slice(-1)}`
-            data.Notes = `${data._17.slice(0, -2)}`
+            let fixNotes = `${data._17.slice(0, -2)}`
+            data.Notes += fixNotes
             break
 
           case 5:
@@ -58,7 +60,7 @@ async function readEmployeesFromFile(): Promise<any[]> {
             if (dataFromFiveLength) {
               data.Name = `${dataFromFiveLength.FirstName} ${dataFromFiveLength.LastName}`
               data.ReportsTo = `${data.Country.slice(-1)}`
-              data.Notes = `${data.Address}${data.City}${data.Region}${
+              data.Notes = `${dataFromFiveLength.Address}${data.City}${data.Region}${
                 data.PostalCode
               }${data.Country.slice(0, -2)}`
               data.Address = `${dataFromFiveLength.Address} ${data.EmployeeID}`
