@@ -10,6 +10,7 @@ const router_1 = require("./swagger/router");
 const productsRoutes_1 = __importDefault(require("./routes/productsRoutes"));
 const suppliersRoutes_1 = __importDefault(require("./routes/suppliersRoutes"));
 const customersRoutes_1 = __importDefault(require("./routes/customersRoutes"));
+const employeesRoutes_1 = __importDefault(require("./routes/employeesRoutes"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const PORT = process.env.PORT || 8081;
@@ -21,6 +22,7 @@ app.use(express_1.default.json());
 app.use('/products', (0, productsRoutes_1.default)(client));
 app.use('/suppliers', (0, suppliersRoutes_1.default)(client));
 app.use('/customers', (0, customersRoutes_1.default)(client));
+app.use('/employees', (0, employeesRoutes_1.default)(client));
 app.use('/api_docs', router_1.swaggerRouter);
 client
     .connect()

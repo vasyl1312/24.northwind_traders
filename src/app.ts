@@ -5,7 +5,7 @@ import { swaggerRouter } from './swagger/router'
 import productsRoutes from './routes/productsRoutes'
 import suppliersRoutes from './routes/suppliersRoutes'
 import customersRoutes from './routes/customersRoutes'
-
+import employeesRoutes from './routes/employeesRoutes'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -21,6 +21,7 @@ app.use(express.json())
 app.use('/products', productsRoutes(client))
 app.use('/suppliers', suppliersRoutes(client))
 app.use('/customers', customersRoutes(client))
+app.use('/employees', employeesRoutes(client))
 
 app.use('/api_docs', swaggerRouter)
 
