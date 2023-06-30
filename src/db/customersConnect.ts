@@ -20,7 +20,7 @@ async function readCustomersFromFile(): Promise<any[]> {
           data.Region = region
 
           if (!data.Fax) {
-            data.Fax = null
+            data.Fax = 'null'
           }
 
           results.push(data)
@@ -49,7 +49,7 @@ async function createTableAndInsertData(client: Client, customersInfo: any[], re
       "PostalCode" varchar(255), 
       "Country" varchar(255), 
       "Phone" varchar(255), 
-      "Fax" varchar(255) );`
+      "Fax" text );`
 
     await client.query(createTableQuery)
 

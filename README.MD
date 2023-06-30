@@ -18,6 +18,7 @@ Realise a backend part like [this](https://northwind.d1sql.com/dash) with partne
 6. Customer swagger
 7. Read data Employees and prepare to db
 8. Push Employees to db
-9. Employees id
+9. Employee id
+10. Employees swagger and fix some bugs
 
 <!-- в дашборд нема каунт від кожного запиту -->

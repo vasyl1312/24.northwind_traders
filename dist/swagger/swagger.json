@@ -5,15 +5,10 @@
         "version": "1.0.11"
     },
     "tags": [
-        {
-            "name": "Products"
-        },
-        {
-            "name": "Suppliers"
-        },
-        {
-            "name": "Customers"
-        }
+        { "name": "Products" },
+        { "name": "Suppliers" },
+        { "name": "Customers" },
+        { "name": "Employees" }
     ],
     "paths": {
         "/products": {
@@ -153,6 +148,57 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/CustomerId"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    },
+                    "404": {
+                        "description": "No records found in the database matching your query."
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    }
+                }
+            }
+        },
+        "/employees": {
+            "get": {
+                "tags": ["Employees"],
+                "summary": "Get list of all employees",
+                "responses": {
+                    "200": {
+                        "description": "A list of employees",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Employee"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    }
+                }
+            }
+        },
+        "/employees/{employeesId}": {
+            "get": {
+                "tags": ["Employees"],
+                "summary": "Get single employee by id",
+                "responses": {
+                    "200": {
+                        "description": "Full information about this single employee",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmployeeId"
                                 }
                             }
                         }
@@ -310,6 +356,72 @@
                             "Country": { "type": "string", "example": "Germany" },
                             "Phone": { "type": "string", "example": "030-0074321" },
                             "Fax": { "type": "string", "example": "030-0076545" }
+                        }
+                    }
+                }
+            },
+            "Employee": {
+                "type": "object",
+                "properties": {
+                    "sqlLog": {
+                        "$ref": "#/components/schemas/SqlLog"
+                    },
+                    "employees": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": { "type": "integer", "example": 1 },
+                                "EmployeeID": { "type": "integer", "example": 1 },
+                                "Name": { "type": "string", "example": "Nancy Davolio" },
+                                "Title": { "type": "string", "example": "Sales Representative" },
+                                "City": { "type": "string", "example": "Seattle" },
+                                "Country": { "type": "string", "example": "USA" },
+                                "HomePhone": { "type": "string", "example": "(206) 555-9857" }
+                            }
+                        }
+                    }
+                }
+            },
+            "EmployeeId": {
+                "type": "object",
+                "properties": {
+                    "sqlLog": {
+                        "$ref": "#/components/schemas/SqlLog"
+                    },
+                    "employee": {
+                        "type": "object",
+                        "properties": {
+                            "id": { "type": "integer", "example": 1 },
+                            "EmployeeID": { "type": "integer", "example": 1 },
+                            "Name": { "type": "string", "example": "Nancy Davolio" },
+                            "Title": { "type": "string", "example": "Sales Representative" },
+                            "TitleOfCourtesy": { "type": "string", "example": "Ms." },
+                            "Address": { "type": "string", "example": "507 - 20th Ave. E.Apt. 2A" },
+                            "City": { "type": "string", "example": "Seattle" },
+                            "BirthDate": { "type": "string", "example": "1948-12-08" },
+                            "PostalCode": { "type": "string", "example": "98122" },
+                            "Country": { "type": "string", "example": "USA" },
+                            "HireDate": { "type": "string", "example": "1992-05-01" },
+                            "HomePhone": { "type": "string", "example": "(206) 555-9857" },
+                            "Extension": { "type": "integer", "example": 5467 },
+                            "Notes": {
+                                "type": "string",
+                                "example": "Education includes a BA in psychology from Colorado State University in 1970.  She also completed \"The Art of the Cold Call.\"  Nancy is a member of Toastmasters International."
+                            },
+                            "ReportsTo": {
+                                "type": "object",
+                                "properties": {
+                                    "EmployeeID": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "Name": {
+                                        "type": "string",
+                                        "example": "Andrew Fuller"
+                                    }
+                                }
+                            }
                         }
                     }
                 }

@@ -33,7 +33,7 @@ async function readEmployeesFromFile(): Promise<any[]> {
             data.HomePhone = `${data.Extension}`
             data.Extension = `${data.Notes}`
             data.Notes = `${data.ReportsTo}${data._16}${data._17}${data._18}`
-            data.ReportsTo = null
+            data.ReportsTo = -1
             break
 
           case 2:

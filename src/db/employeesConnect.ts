@@ -21,7 +21,7 @@ async function createTableAndInsertData(client: Client, employeesInfo: any[], re
       "HomePhone" varchar(255),
       "Extension" integer,
       "Notes" text,
-      "ReportsTo" integer 
+      "ReportsTo" integer
       );`
 
     await client.query(createTableQuery)
@@ -61,11 +61,12 @@ async function createTableAndInsertData(client: Client, employeesInfo: any[], re
           "Country" = $9 AND
           "HireDate" = $10 AND
           "HomePhone" = $11 AND
-          "Extension" = $12 AND 
-          "Notes" = $13 AND 
-          "ReportsTo"= $14
-        LIMIT 1;
-      `
+          "Extension" = $12 AND
+          "Notes" = $13 AND
+          "ReportsTo" = $14
+          LIMIT 1;
+          `
+
       const existingResult = await client.query(existingQuery, [
         EmployeeID,
         Name,
@@ -84,7 +85,7 @@ async function createTableAndInsertData(client: Client, employeesInfo: any[], re
       ])
 
       if (existingResult.rowCount === 0) {
-        // Якщо запис не знайдено, виконуємо INSERT запит
+        // Якщо запис не знайдено і ще не було виконано вставки
         await client.query(insertQuery, [
           EmployeeID,
           Name,

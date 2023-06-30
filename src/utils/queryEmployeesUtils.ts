@@ -28,6 +28,7 @@ async function selectEmployees(client: Client) {
 
 async function selectSingleEmployee(client: Client, productId: string) {
   const selectQuery = `SELECT e1.*, json_build_object('EmployeeID', e2."EmployeeID", 'Name', e2."Name") AS "ReportsTo" FROM employees e1 LEFT JOIN employees e2 ON e1."ReportsTo" = e2."EmployeeID" WHERE e1."id" = $1;`
+
   const startTime = new Date()
   const selectResult = await client.query(selectQuery, [productId])
   const finishTime = new Date()
