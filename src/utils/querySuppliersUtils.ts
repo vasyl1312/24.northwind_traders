@@ -1,8 +1,12 @@
 import { Client } from 'pg'
 
-async function selectSuppliers(client: Client) {
-  // Вибірка лише вибраних даних з таблиці
-  const selectQuery = `SELECT "id", "SupplierID", "CompanyName", "ContactName", "ContactTitle", "City", "Country" FROM suppliers;`
+async function selectSuppliers(client: Client, page: number, limit: number) {
+  const offset = (page - 1) * limit // Обчислення зміщення для вибірки
+  const selectQuery = `SELECT "id", "SupplierID", "CompanyName", "ContactName", "ContactTitle", "City", "Country" FROM suppliers
+      OFFSET ${offset}
+      LIMIT ${limit};
+    `
+
   const startTime = new Date()
   const selectResult = await client.query(selectQuery)
   const finishTime = new Date()

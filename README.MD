@@ -20,5 +20,6 @@ Realise a backend part like [this](https://northwind.d1sql.com/dash) with partne
 8. Push Employees to db
 9. Employee id
 10. Employees swagger and fix some bugs
+11. Pagination
 
 <!-- в дашборд нема каунт від кожного запиту -->

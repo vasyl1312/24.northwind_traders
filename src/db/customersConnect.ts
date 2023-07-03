@@ -35,7 +35,13 @@ async function readCustomersFromFile(): Promise<any[]> {
   })
 }
 
-async function createTableAndInsertData(client: Client, customersInfo: any[], res: Response) {
+async function createTableAndInsertData(
+  client: Client,
+  customersInfo: any[],
+  res: Response,
+  page: number,
+  limit: number
+) {
   try {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS customers ( 
       "id" SERIAL PRIMARY KEY, 
@@ -120,7 +126,7 @@ async function createTableAndInsertData(client: Client, customersInfo: any[], re
     }
 
     // Додатковий код, якщо необхідно виконати запит до доданих даних
-    const result = await selectCustomers(client)
+    const result = await selectCustomers(client, page, limit)
     return result
   } catch (error) {
     console.error('Error creating table and inserting CustomersInfo:', error)

@@ -58,7 +58,7 @@ function readProductsFromFile() {
     });
 }
 exports.readProductsFromFile = readProductsFromFile;
-function createTableAndInsertData(client, productsInfo, res) {
+function createTableAndInsertData(client, productsInfo, res, page, limit) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const createTableQuery = `
@@ -134,7 +134,7 @@ function createTableAndInsertData(client, productsInfo, res) {
                 }
             }
             //query
-            const result = yield (0, queryProductsUtils_1.selectProducts)(client);
+            const result = yield (0, queryProductsUtils_1.selectProducts)(client, page, limit);
             return result;
         }
         catch (error) {

@@ -8,8 +8,10 @@ const customersRoutes = (client: any) => {
   router.get('/', async (req, res) => {
     try {
       const customersInfo = await readCustomersFromFile()
-      const result = await createTableAndInsertData(client, customersInfo, res)
+      const page = req.query.page ? parseInt(req.query.page.toString(), 10) : 1
+      const limit = req.query.limit ? parseInt(req.query.limit.toString(), 10) : 20
 
+      const result = await createTableAndInsertData(client, customersInfo, res, page, limit)
       res.json(result)
     } catch (error) {
       console.error('Error:', error)

@@ -20,7 +20,9 @@ const productsRoutes = (client) => {
     router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const productsInfo = yield (0, productConnect_1.readProductsFromFile)();
-            const result = yield (0, productConnect_1.createTableAndInsertData)(client, productsInfo, res);
+            const page = req.query.page ? parseInt(req.query.page.toString(), 10) : 1;
+            const limit = req.query.limit ? parseInt(req.query.limit.toString(), 10) : 20;
+            const result = yield (0, productConnect_1.createTableAndInsertData)(client, productsInfo, res, page, limit);
             res.json(result);
         }
         catch (error) {

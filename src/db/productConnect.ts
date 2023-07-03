@@ -24,7 +24,13 @@ function readProductsFromFile(): Promise<any[]> {
   })
 }
 
-async function createTableAndInsertData(client: Client, productsInfo: any[], res: Response) {
+async function createTableAndInsertData(
+  client: Client,
+  productsInfo: any[],
+  res: Response,
+  page: number,
+  limit: number
+) {
   try {
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS products (
@@ -115,7 +121,7 @@ async function createTableAndInsertData(client: Client, productsInfo: any[], res
     }
 
     //query
-    const result = await selectProducts(client)
+    const result = await selectProducts(client, page, limit)
     return result
   } catch (error) {
     console.error('Error creating table and inserting productsInfo:', error)

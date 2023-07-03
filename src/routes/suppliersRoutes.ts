@@ -14,8 +14,10 @@ const suppliersRoutes = (client: any) => {
   router.get('/', async (req, res) => {
     try {
       const suppliersInfo = await readSuppliersFromFile()
-      const result = await createTableAndInsertData(client, suppliersInfo, res)
+      const page = req.query.page ? parseInt(req.query.page.toString(), 10) : 1
+      const limit = req.query.limit ? parseInt(req.query.limit.toString(), 10) : 20
 
+      const result = await createTableAndInsertData(client, suppliersInfo, res, page, limit)
       res.json(result)
     } catch (error) {
       console.error('Error:', error)

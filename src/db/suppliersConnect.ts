@@ -29,7 +29,13 @@ async function readSuppliersFromFile(): Promise<any[]> {
   })
 }
 
-async function createTableAndInsertData(client: Client, suppliersInfo: any[], res: Response) {
+async function createTableAndInsertData(
+  client: Client,
+  suppliersInfo: any[],
+  res: Response,
+  page: number,
+  limit: number
+) {
   try {
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS suppliers (
@@ -121,7 +127,7 @@ async function createTableAndInsertData(client: Client, suppliersInfo: any[], re
     }
 
     // Додатковий код, якщо необхідно виконати запит до доданих даних
-    const result = await selectSuppliers(client)
+    const result = await selectSuppliers(client, page, limit)
     return result
   } catch (error) {
     console.error('Error creating table and inserting suppliersInfo:', error)
