@@ -21,5 +21,6 @@ Realise a backend part like [this](https://northwind.d1sql.com/dash) with partne
 9. Employee id
 10. Employees swagger and fix some bugs
 11. Pagination
+12. MaxPage for all
 
 <!-- в дашборд нема каунт від кожного запиту -->

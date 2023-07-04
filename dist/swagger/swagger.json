@@ -224,6 +224,8 @@
                     "sqlLog": {
                         "$ref": "#/components/schemas/SqlLog"
                     },
+                    "totalElementsFromDB": { "type": "integer", "example": 1 },
+                    "maxPage": { "type": "integer", "example": 1 },
                     "products": {
                         "type": "array",
                         "items": {
@@ -271,6 +273,8 @@
                     "sqlLog": {
                         "$ref": "#/components/schemas/SqlLog"
                     },
+                    "totalElementsFromDB": { "type": "integer", "example": 1 },
+                    "maxPage": { "type": "integer", "example": 1 },
                     "suppliers": {
                         "type": "array",
                         "items": {
@@ -318,6 +322,8 @@
                     "sqlLog": {
                         "$ref": "#/components/schemas/SqlLog"
                     },
+                    "totalElementsFromDB": { "type": "integer", "example": 1 },
+                    "maxPage": { "type": "integer", "example": 1 },
                     "customers": {
                         "type": "array",
                         "items": {
@@ -366,6 +372,8 @@
                     "sqlLog": {
                         "$ref": "#/components/schemas/SqlLog"
                     },
+                    "totalElementsFromDB": { "type": "integer", "example": 1 },
+                    "maxPage": { "type": "integer", "example": 1 },
                     "employees": {
                         "type": "array",
                         "items": {
