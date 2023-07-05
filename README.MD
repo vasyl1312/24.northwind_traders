@@ -22,5 +22,4 @@ Realise a backend part like [this](https://northwind.d1sql.com/dash) with partne
 10. Employees swagger and fix some bugs
 11. Pagination
 12. MaxPage for all
-
-<!-- в дашборд нема каунт від кожного запиту -->
+13. Created tables for Orders and OrdersDetails

@@ -2,6 +2,7 @@ import cors from 'cors'
 import express from 'express'
 import { Client } from 'pg'
 import { swaggerRouter } from './swagger/router'
+import ordersRoutes from './routes/ordersRoutes'
 import productsRoutes from './routes/productsRoutes'
 import suppliersRoutes from './routes/suppliersRoutes'
 import customersRoutes from './routes/customersRoutes'
@@ -22,6 +23,7 @@ app.use('/products', productsRoutes(client))
 app.use('/suppliers', suppliersRoutes(client))
 app.use('/customers', customersRoutes(client))
 app.use('/employees', employeesRoutes(client))
+app.use('/orders', ordersRoutes(client))
 
 app.use('/api_docs', swaggerRouter)
 

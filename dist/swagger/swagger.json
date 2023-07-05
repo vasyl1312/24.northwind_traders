@@ -311,7 +311,9 @@
                             "Region": { "type": "string", "example": "North America" },
                             "PostalCode": { "type": "string", "example": "70117" },
                             "Country": { "type": "string", "example": "USA" },
-                            "Phone": { "type": "string", "example": "(100) 555-4822" }
+                            "Phone": { "type": "string", "example": "(100) 555-4822" },
+                            "Fax": { "type": "string", "example": "4822" },
+                            "HomePage": { "type": "string", "example": "#CAJUN.HTM#" }
                         }
                     }
                 }
