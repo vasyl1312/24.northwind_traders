@@ -45,7 +45,7 @@ async function selectSuppliers(client: Client, page: number, limit: number) {
 }
 
 async function selectSingleSupplier(client: Client, productId: string) {
-  const selectQuery = `SELECT "id", "SupplierID", "CompanyName", "ContactName", "ContactTitle", "Address", "City", "Region", "PostalCode", "Country", "Phone" FROM suppliers WHERE "id" = $1;`
+  const selectQuery = `SELECT "id", "SupplierID", "CompanyName", "ContactName", "ContactTitle", "Address", "City", "Region", "PostalCode", "Country", "Phone", "Fax", "HomePage" FROM suppliers WHERE "id" = $1;`
 
   const startTime = new Date()
   const selectResult = await client.query(selectQuery, [productId])
