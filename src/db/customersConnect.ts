@@ -1,10 +1,8 @@
 import * as dotenv from 'dotenv'
 import csv from 'csv-parser'
 import { Client } from 'pg'
-import { Response } from 'express'
 import { createReadStream } from 'fs'
 import { getRegion } from '../utils/getRegion'
-import { selectCustomers } from '../utils/queryCustomersUtils'
 
 dotenv.config()
 
@@ -35,13 +33,7 @@ async function readCustomersFromFile(): Promise<any[]> {
   })
 }
 
-async function createTableAndInsertData(
-  client: Client,
-  customersInfo: any[],
-  res: Response,
-  page: number,
-  limit: number
-) {
+async function createTableAndInsertCustomer(client: Client, customersInfo: any[]) {
   try {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS customers ( 
       "id" SERIAL PRIMARY KEY, 
@@ -124,14 +116,10 @@ async function createTableAndInsertData(
         ])
       }
     }
-
-    // Додатковий код, якщо необхідно виконати запит до доданих даних
-    const result = await selectCustomers(client, page, limit)
-    return result
   } catch (error) {
     console.error('Error creating table and inserting CustomersInfo:', error)
     throw new Error('Error creating table and inserting CustomersInfo')
   }
 }
 
-export { readCustomersFromFile, createTableAndInsertData }
+export { readCustomersFromFile, createTableAndInsertCustomer }

@@ -35,10 +35,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTableAndInsertData = exports.readProductsFromFile = void 0;
+exports.createTableAndInsertProduct = exports.readProductsFromFile = void 0;
 const csv_parser_1 = __importDefault(require("csv-parser"));
 const dotenv = __importStar(require("dotenv"));
-const queryProductsUtils_1 = require("../utils/queryProductsUtils");
 const fs_1 = require("fs");
 dotenv.config();
 function readProductsFromFile() {
@@ -58,7 +57,7 @@ function readProductsFromFile() {
     });
 }
 exports.readProductsFromFile = readProductsFromFile;
-function createTableAndInsertData(client, productsInfo, res, page, limit) {
+function createTableAndInsertProduct(client, productsInfo) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const createTableQuery = `
@@ -133,9 +132,6 @@ function createTableAndInsertData(client, productsInfo, res, page, limit) {
                     ]);
                 }
             }
-            //query
-            const result = yield (0, queryProductsUtils_1.selectProducts)(client, page, limit);
-            return result;
         }
         catch (error) {
             console.error('Error creating table and inserting productsInfo:', error);
@@ -143,4 +139,4 @@ function createTableAndInsertData(client, productsInfo, res, page, limit) {
         }
     });
 }
-exports.createTableAndInsertData = createTableAndInsertData;
+exports.createTableAndInsertProduct = createTableAndInsertProduct;

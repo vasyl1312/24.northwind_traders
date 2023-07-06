@@ -1,6 +1,6 @@
 import express from 'express'
-import { readOrdersFromFile, readOrdersDetailsFromFile } from '../db/ordersReadAndFix'
-import { createTableAndInsertData } from '../db/ordersConnect'
+import { selectOrders } from '../utils/queryOrdersUtils'
+import { createAndRead } from '../db/readAndCreateTables'
 // import { selectSingleOrder } from '../utils/queryOrdersUtils'
 
 const router = express.Router()
@@ -8,19 +8,11 @@ const router = express.Router()
 const ordersRoutes = (client: any) => {
   router.get('/', async (req, res) => {
     try {
-      const ordersInfo = await readOrdersFromFile()
-      const ordersDetailsInfo = await readOrdersDetailsFromFile()
+      // createAndRead(client)
       const page = req.query.page ? parseInt(req.query.page.toString(), 10) : 1
       const limit = req.query.limit ? parseInt(req.query.limit.toString(), 10) : 20
 
-      const result = await createTableAndInsertData(
-        client,
-        ordersInfo,
-        ordersDetailsInfo,
-        res,
-        page,
-        limit
-      )
+      const result = await selectOrders(client, page, limit)
       res.json(result)
     } catch (error) {
       console.error('Error:', error)

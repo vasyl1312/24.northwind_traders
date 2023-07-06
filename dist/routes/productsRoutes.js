@@ -13,16 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const productConnect_1 = require("../db/productConnect");
 const queryProductsUtils_1 = require("../utils/queryProductsUtils");
 const router = express_1.default.Router();
 const productsRoutes = (client) => {
     router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const productsInfo = yield (0, productConnect_1.readProductsFromFile)();
+            // createAndRead(client)
             const page = req.query.page ? parseInt(req.query.page.toString(), 10) : 1;
             const limit = req.query.limit ? parseInt(req.query.limit.toString(), 10) : 20;
-            const result = yield (0, productConnect_1.createTableAndInsertData)(client, productsInfo, res, page, limit);
+            const result = yield (0, queryProductsUtils_1.selectProducts)(client, page, limit);
             res.json(result);
         }
         catch (error) {

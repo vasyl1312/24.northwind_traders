@@ -1,16 +1,8 @@
 import * as dotenv from 'dotenv'
 import { Client } from 'pg'
-import { Response } from 'express'
-import { selectEmployees } from '../utils/queryEmployeesUtils'
 dotenv.config()
 
-async function createTableAndInsertData(
-  client: Client,
-  employeesInfo: any[],
-  res: Response,
-  page: number,
-  limit: number
-) {
+async function createTableAndInsertEmployees(client: Client, employeesInfo: any[]) {
   try {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS employees (
       "id" SERIAL PRIMARY KEY,
@@ -110,14 +102,10 @@ async function createTableAndInsertData(
         ])
       }
     }
-
-    // Додатковий код, якщо необхідно виконати запит до доданих даних
-    const result = await selectEmployees(client, page, limit)
-    return result
   } catch (error) {
     console.error('Error creating table and inserting employeesInfo:', error)
     throw new Error('Error creating table and inserting employeesInfo')
   }
 }
 
-export { createTableAndInsertData }
+export { createTableAndInsertEmployees }

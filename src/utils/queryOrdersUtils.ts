@@ -2,9 +2,10 @@ import { Client } from 'pg'
 
 async function selectOrders(client: Client, page: number, limit: number) {
   const offset = (page - 1) * limit // Обчислення зміщення для вибірки
-  const selectQuery = `SELECT "id", "CustomerID", "CompanyName", "ContactName", "ContactTitle", "City", "Country" FROM customers OFFSET ${offset} LIMIT ${limit};`
-  const countQuery = `SELECT COUNT(*) FROM customers;`
+  const selectQuery = `SELECT * FROM orders OFFSET ${offset} LIMIT ${limit};`
 
+  const countQuery = `SELECT COUNT(*) FROM ordersdetails OFFSET ${offset} LIMIT ${limit};`
+  // const selectQuery = `SELECT "id", "ProductID", "ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder" FROM products OFFSET ${offset} LIMIT ${limit};`
   const startTime = new Date()
 
   const selectResult = await client.query(selectQuery)
@@ -38,11 +39,10 @@ async function selectOrders(client: Client, page: number, limit: number) {
     sqlLog: [selectSqlLog, countSqlLog],
     totalElementsFromDB,
     maxPage,
-    customers: selectedData,
+    orders: selectedData,
   }
 
   return result
 }
-
 
 export { selectOrders }

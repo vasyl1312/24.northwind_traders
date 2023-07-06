@@ -23,3 +23,4 @@ Realise a backend part like [this](https://northwind.d1sql.com/dash) with partne
 11. Pagination
 12. MaxPage for all
 13. Created tables for Orders and OrdersDetails
+14. Upgrade reading and saving to database

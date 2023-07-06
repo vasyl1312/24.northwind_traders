@@ -1,8 +1,6 @@
 import csv from 'csv-parser'
 import * as dotenv from 'dotenv'
 import { Client } from 'pg'
-import { Response } from 'express'
-import { selectProducts } from '../utils/queryProductsUtils'
 import { createReadStream } from 'fs'
 dotenv.config()
 
@@ -24,13 +22,7 @@ function readProductsFromFile(): Promise<any[]> {
   })
 }
 
-async function createTableAndInsertData(
-  client: Client,
-  productsInfo: any[],
-  res: Response,
-  page: number,
-  limit: number
-) {
+async function createTableAndInsertProduct(client: Client, productsInfo: any[]) {
   try {
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS products (
@@ -119,14 +111,10 @@ async function createTableAndInsertData(
         ])
       }
     }
-
-    //query
-    const result = await selectProducts(client, page, limit)
-    return result
   } catch (error) {
     console.error('Error creating table and inserting productsInfo:', error)
     throw new Error('Error creating table and inserting productsInfo')
   }
 }
 
-export { readProductsFromFile, createTableAndInsertData }
+export { readProductsFromFile, createTableAndInsertProduct }
