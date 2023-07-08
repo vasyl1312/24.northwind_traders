@@ -1,9 +1,8 @@
 import express from 'express'
-import { selectOrders } from '../utils/queryOrdersUtils'
+import { selectOrders, selectSingleOrder } from '../utils/queryOrdersUtils'
 import { createAndRead } from '../db/readAndCreateTables'
 import { Client } from 'pg'
 import { readOrdersFromFile } from '../db/ordersReadAndFix'
-// import { selectSingleOrder } from '../utils/queryOrdersUtils'
 
 const router = express.Router()
 
@@ -22,17 +21,17 @@ const ordersRoutes = (client: any) => {
     }
   })
 
-  // router.get('/:id', async (req, res) => {
-  //   const employeeId = req.params.id
-  //   try {
-  //     const result = await selectSingleOrder(client, employeeId)
+  router.get('/:id', async (req, res) => {
+    const orderId = req.params.id
+    try {
+      const result = await selectSingleOrder(client, orderId)
 
-  //     res.json(result)
-  //   } catch (error) {
-  //     console.error('Error retrieving data from the database:', error)
-  //     res.status(500).send('Internal Server Error')
-  //   }
-  // })
+      res.json(result)
+    } catch (error) {
+      console.error('Error retrieving data from the database:', error)
+      res.status(500).send('Internal Server Error')
+    }
+  })
 
   return router
 }
