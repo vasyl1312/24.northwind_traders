@@ -2,8 +2,6 @@ import express from 'express'
 import { selectOrders, selectSingleOrder } from '../utils/queryOrdersUtils'
 import { createAndRead } from '../db/readAndCreateTables'
 import { Client } from 'pg'
-import { readOrdersFromFile } from '../db/ordersReadAndFix'
-
 const router = express.Router()
 
 const ordersRoutes = (client: any) => {

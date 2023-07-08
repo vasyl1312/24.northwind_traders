@@ -13,22 +13,16 @@ dotenv.config()
 const createAndRead = async (client: any) => {
   // const productsInfo = await readProductsFromFile()
   // const resultProduct = await createTableAndInsertProduct(client, productsInfo)
-
   // const customersInfo = await readCustomersFromFile()
   // const resultCustomer = await createTableAndInsertCustomer(client, customersInfo)
-
   // const suppliersInfo = await readSuppliersFromFile()
   // const resultSuppliers = await createTableAndInsertSuppliers(client, suppliersInfo)
-
   // const employeesInfo = await readEmployeesFromFile()
   // const resultEmployees = await createTableAndInsertEmployees(client, employeesInfo)
-
   // const ordersInfoDeta = await readOrdersDetailsFromFile()
   // const resultOrders = await createTableAndInsertDetails(client, ordersInfoDeta)
-
   // const shippersDetailsInfo = await readShippersFromFile()
   // const resultShippers = await createTableAndInsertShippers(client, shippersDetailsInfo)
-
   // const ordersInfo = await readOrders1FromFile()
   // const resultOrders = await createTableAndInsertOrders1(client, ordersInfo)
 }
