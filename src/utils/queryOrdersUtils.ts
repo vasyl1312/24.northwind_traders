@@ -85,6 +85,8 @@ async function selectSingleOrder(client: Client, orderId: string) {
     "orders"."ShipCountry",
     "orders"."ShipName",
     "orders"."CustomerID",
+    "shippers"."CompanyName",
+    CONCAT('$', ROUND(SUM("ordersdetails"."UnitPrice"::numeric * "ordersdetails"."Discount"::numeric * "ordersdetails"."Quantity"::numeric), 2))  AS "TotalProductsDiscount",
     CONCAT('$', ROUND(SUM("ordersdetails"."UnitPrice"::numeric * "ordersdetails"."Quantity"::numeric), 2)) AS "TotalProductsPrice",
     SUM("ordersdetails"."Quantity"::numeric) AS "TotalQuantity",
     COUNT("ordersdetails"."ProductID") AS "TotalProducts"
@@ -92,10 +94,13 @@ async function selectSingleOrder(client: Client, orderId: string) {
     "orders"
   LEFT JOIN
     "ordersdetails" ON "orders"."OrderID" = "ordersdetails"."OrderID"
+  LEFT JOIN 
+    "shippers" ON "orders"."ShipVia" = "shippers"."ShipperID"
   WHERE
     "orders"."OrderID" = $1
   GROUP BY
     "ordersdetails"."OrderID",
+    "shippers"."CompanyName",
     "orders"."OrderID",
     "orders"."id"
   ;`

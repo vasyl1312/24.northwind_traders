@@ -525,16 +525,34 @@
                         "type": "object",
                         "properties": {
                             "id": { "type": "integer", "example": 1 },
+                            "OrderID": { "type": "string", "example": 10248 },
+                            "TotalProductsPrice": { "type": "string", "example": "$440.00" },
+                            "TotalProductsDiscount": { "type": "string", "example": "$260.40" },
+                            "TotalQuantity": { "type": "string", "example": "27" },
+                            "TotalProducts": { "type": "string", "example": "3" },
+                            "Freight": { "type": "string", "example": "32.38" },
+                            "ShippedDate": { "type": "string", "example": "7/16/1996" },
+                            "OrderDate": { "type": "string", "example": "7/4/1996" },
+                            "RequiredDate": { "type": "string", "example": "8/1/1996" },
+                            "ShipName": { "type": "string", "example": "Vins et alcools Chevalier" },
+                            "ShipCountry": { "type": "string", "example": "France" },
+                            "ShipAddress": { "type": "string", "example": "59 rue de l-Abbaye" },
+                            "ShipRegion": { "type": "string", "example": "Western Europe" },
+                            "ShipPostalCode": { "type": "string", "example": "51100" },
+                            "CustomerID": { "type": "string", "example": "VINET" },
+                            "ShipCity": { "type": "string", "example": "Reims" }
+                        }
+                    },
+                    "products": {
+                        "type": "object",
+                        "properties": {
+                            "id": { "type": "integer", "example": 11 },
                             "ProductID": { "type": "integer", "example": 1 },
-                            "ProductName": { "type": "string", "example": "Chai" },
-                            "QuantityPerUnit": { "type": "string", "example": "10 boxes x 20 bags" },
-                            "UnitPrice": { "type": "string", "example": "18" },
-                            "UnitsInStock": { "type": "integer", "example": 39 },
-                            "SupplierID": { "type": "integer", "example": 1 },
-                            "ReorderLevel": { "type": "integer", "example": 10 },
-                            "Discontinued": { "type": "integer", "example": 0 },
-                            "UnitsOnOrder": { "type": "integer", "example": 0 },
-                            "Supplier": { "type": "string", "example": "Exotic Liquids" }
+                            "ProductName": { "type": "string", "example": "Queso Cabrales" },
+                            "UnitPrice": { "type": "string", "example": "$14" },
+                            "Discount": { "type": "string", "example": "0%" },
+                            "TotalProductsPrice": { "type": "string", "example": "$168.00" },
+                            "TotalQuantity": { "type": "string", "example": "12" }
                         }
                     }
                 }
