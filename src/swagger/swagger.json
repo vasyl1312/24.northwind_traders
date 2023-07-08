@@ -8,7 +8,8 @@
     { "name": "Products" },
     { "name": "Suppliers" },
     { "name": "Customers" },
-    { "name": "Employees" }
+    { "name": "Employees" },
+    { "name": "Orders" }
   ],
   "paths": {
     "/products": {
@@ -199,6 +200,57 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/EmployeeId"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          },
+          "404": {
+            "description": "No records found in the database matching your query."
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Get list of all orders",
+        "responses": {
+          "200": {
+            "description": "A list of orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        }
+      }
+    },
+    "/orders/{ordersId}": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Get single order by id",
+        "responses": {
+          "200": {
+            "description": "Full information about this single order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderId"
                 }
               }
             }
@@ -432,6 +484,74 @@
                   }
                 }
               }
+            }
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "sqlLog": {
+            "$ref": "#/components/schemas/SqlLog"
+          },
+          "totalElementsFromDB": { "type": "integer", "example": 1 },
+          "maxPage": { "type": "integer", "example": 1 },
+          "orders": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "integer", "example": 1 },
+                "OrderID": { "type": "string", "example": 10248 },
+                "TotalProductsPrice": { "type": "string", "example": "$440.00" },
+                "TotalQuantity": { "type": "string", "example": "27" },
+                "TotalProducts": { "type": "string", "example": "3" },
+                "ShippedDate": { "type": "string", "example": "7/16/1996" },
+                "ShipName": { "type": "string", "example": "Vins et alcools Chevalier" },
+                "ShipCountry": { "type": "string", "example": "France" },
+                "ShipCity": { "type": "string", "example": "Reims" }
+              }
+            }
+          }
+        }
+      },
+      "OrderId": {
+        "type": "object",
+        "properties": {
+          "sqlLog": {
+            "$ref": "#/components/schemas/SqlLog"
+          },
+          "order": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer", "example": 1 },
+              "OrderID": { "type": "string", "example": 10248 },
+              "TotalProductsPrice": { "type": "string", "example": "$440.00" },
+              "TotalQuantity": { "type": "string", "example": "27" },
+              "TotalProducts": { "type": "string", "example": "3" },
+              "Freight": { "type": "string", "example": "32.38" },
+              "ShippedDate": { "type": "string", "example": "7/16/1996" },
+              "OrderDate": { "type": "string", "example": "7/4/1996" },
+              "RequiredDate": { "type": "string", "example": "8/1/1996" },
+              "ShipName": { "type": "string", "example": "Vins et alcools Chevalier" },
+              "ShipCountry": { "type": "string", "example": "France" },
+              "ShipAddress": { "type": "string", "example": "59 rue de l-Abbaye" },
+              "ShipRegion": { "type": "string", "example": "Western Europe" },
+              "ShipPostalCode": { "type": "string", "example": "51100" },
+              "CustomerID": { "type": "string", "example": "VINET" },
+              "ShipCity": { "type": "string", "example": "Reims" }
+            }
+          },
+          "products": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer", "example": 11 },
+              "ProductID": { "type": "integer", "example": 1 },
+              "ProductName": { "type": "string", "example": "Queso Cabrales" },
+              "UnitPrice": { "type": "string", "example": "$14" },
+              "Discount": { "type": "string", "example": "0%" },
+              "TotalProductsPrice": { "type": "string", "example": "$168.00" },
+              "TotalQuantity": { "type": "string", "example": "12" }
             }
           }
         }
