@@ -9,7 +9,8 @@
         { "name": "Suppliers" },
         { "name": "Customers" },
         { "name": "Employees" },
-        { "name": "Orders" }
+        { "name": "Orders" },
+        { "name": "Search" }
     ],
     "paths": {
         "/products": {
@@ -260,6 +261,29 @@
                     },
                     "404": {
                         "description": "No records found in the database matching your query."
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    }
+                }
+            }
+        },
+        "/search?searchValue={searchValue}&table={table}": {
+            "get": {
+                "tags": ["Search"],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve list of search results",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Search"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
                     },
                     "400": {
                         "description": "Invalid data"
@@ -554,6 +578,30 @@
                             "Discount": { "type": "string", "example": "0%" },
                             "TotalProductsPrice": { "type": "string", "example": "$168.00" },
                             "TotalQuantity": { "type": "string", "example": "12" }
+                        }
+                    }
+                }
+            },
+            "Search": {
+                "type": "object",
+                "properties": {
+                    "sqlLog": {
+                        "$ref": "#/components/schemas/SqlLog"
+                    },
+                    "table": { "type": "string", "example": "customers" },
+                    "searchValue": { "type": "string", "example": "y" },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": { "type": "integer", "example": 2 },
+                                "CustomerID": { "type": "string", "example": "ANATR" },
+                                "Phone": { "type": "string", "example": "(5) 555-4729" },
+                                "ContactTitle": { "type": "string", "example": "Owner" },
+                                "ContactName": { "type": "string", "example": "Ana Trujillo" },
+                                "CompanyName": { "type": "string", "example": "Ana Trujillo Emparedados y helados" }
+                            }
                         }
                     }
                 }

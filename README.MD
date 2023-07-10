@@ -1,4 +1,4 @@
-`Northwind Trader`
+[`Northwind Trader`](https://lambda-24-northwind-front.vercel.app)
 
 <h1>  This is a team project, where I was a TS developer. We had a real commercial task: </h1>
 
@@ -28,3 +28,4 @@ Realise a backend part like [this](https://northwind.d1sql.com/dash) with partne
 16. OrdersID
 17. Orders swagger
 18. Add Search
+19. Search swagger
