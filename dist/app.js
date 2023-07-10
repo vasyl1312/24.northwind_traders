@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const pg_1 = require("pg");
 const router_1 = require("./swagger/router");
 const ordersRoutes_1 = __importDefault(require("./routes/ordersRoutes"));
+const searchRoutes_1 = __importDefault(require("./routes/searchRoutes"));
 const productsRoutes_1 = __importDefault(require("./routes/productsRoutes"));
 const suppliersRoutes_1 = __importDefault(require("./routes/suppliersRoutes"));
 const customersRoutes_1 = __importDefault(require("./routes/customersRoutes"));
@@ -20,11 +21,12 @@ const client = new pg_1.Client({ connectionString });
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+app.use('/orders', (0, ordersRoutes_1.default)(client));
+app.use('/search', (0, searchRoutes_1.default)(client));
 app.use('/products', (0, productsRoutes_1.default)(client));
 app.use('/suppliers', (0, suppliersRoutes_1.default)(client));
 app.use('/customers', (0, customersRoutes_1.default)(client));
 app.use('/employees', (0, employeesRoutes_1.default)(client));
-app.use('/orders', (0, ordersRoutes_1.default)(client));
 app.use('/api_docs', router_1.swaggerRouter);
 client
     .connect()
