@@ -1,4 +1,4 @@
-[`Northwind Trader`](https://www.notion.so/Northwind-Traders-b46b3424832343a19375bba80a066013)
+`Northwind Trader`[Requirements](https://www.notion.so/Northwind-Traders-b46b3424832343a19375bba80a066013)
 
 <h1>  This is a team project, where I was a TS developer. We had a real commercial task: </h1>
 
